@@ -1,0 +1,121 @@
+:root {
+    --black: #0C0C0C;
+    --brown: #481E14;
+    --moron: #9B3922;
+    --orange: #F2613F;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    background-color: var(--black);
+    color: var(--black);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    padding: 25px 15px;
+    height: calc(100vh - 50px);
+}
+
+.container .users {
+    flex: 1;
+    border-right: 3px solid var(--black);
+    background-color: var(--moron);
+    padding: 20px 10px;
+    overflow: scroll;
+}
+
+.users::-webkit-scrollbar {
+    display: none;
+}
+
+.container .users .user {
+    border: 3px solid var(--brown);
+    background-color: var(--orange);
+    max-width: 250px;
+    min-width: fit-content;
+    margin: auto;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    transition: .2s;
+}
+
+.container .users .user:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.container .users .user strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.container .users .user #email {
+    font-size: 14px;
+}
+
+.container .users .user .icon {
+    position: absolute;
+    top: 50%;
+    right: 850px;
+    transform: translateY(-50%);
+    transition: .3s;
+}
+
+.container .users .user.active {
+    background-color: #f85732;
+    box-shadow: 5px 5px var(--black);
+    transform: translate(-5px, -5px);
+}
+
+.container .users .user.active .icon {
+    display: block;
+    right: 25px;
+}
+
+.container .users .user .icon i {}
+
+.container .posts {
+    flex: 3;
+    background-color: var(--moron);
+    padding: 20px;
+    overflow: scroll;
+}
+
+.posts::-webkit-scrollbar {
+    display: none;
+}
+
+.container .posts .post {
+    background-color: var(--orange);
+    padding: 15px;
+    border: 2px solid var(--brown);
+}
+
+.container .posts .post:not(:last-child) {
+    border-bottom: none;
+}
+
+hr {
+    border-color: var(--black);
+}
+
+.container .posts .post .title {
+    margin-bottom: 10px;
+    display: block;
+    font-size: 22px;
+    letter-spacing: -1px;
+}
+
+.container .posts .post .body {
+    font-size: 17px;
+    margin-top: 5px;
+}
