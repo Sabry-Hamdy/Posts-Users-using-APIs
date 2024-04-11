@@ -16,11 +16,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="users" id="usersContainer"></div>
+      <div class="users" id="usersContainer">
+        <div class="user" id="${user.id}" onclick="getPosts(1)">
+          <div class="text">
+            <strong id="username">${user.name}</strong>
+            <span id="email">${user.email}</span>
+          </div>
+          <div class="icon">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
       <div class="posts" id="postsContainer"></div>
     </div>
+    <script src="main.mjs" type="module"></script>
   </body>
-  <script src="main.mjs" type="module"></script>
   <script src="jsRequests.mjs" type="module"></script>
   <script src="dom.mjs" type="module"></script>
   <script src="jsEventListeners.js" type="module"></script>
