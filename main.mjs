@@ -1,6 +1,5 @@
-getUsers();
-
-getPostsFromUser();
+// Getting users and print them to page, then getting the posts after each click on any user
+getUsers().then(() => getPostsFromUser());
 
 // Functions
 
@@ -31,30 +30,37 @@ function getPostsFromUser() {
 
 // Get users
 function getUsers() {
-  let request = new XMLHttpRequest();
-  request.open("GET", "https://jsonplaceholder.typicode.com/users");
-  request.responseType = "json";
-  request.send();
-  request.onload = function () {
-    if (this.status >= 200 && this.status < 300) {
-      let users = this.response;
+  let fetchUsers = fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => {
+      // Throw an error if there is a problem
+      if (!response.ok) {
+        throw "Something went wrong while getting users";
+      }
+      return response.json();
+    })
+    .then((users) => {
       printUsers(users);
-    }
-  };
+
+      // getPostsFromUser();
+    })
+    .catch((error) => console.error(error));
+
+  return fetchUsers;
 }
 
 // Get Posts
 function getPosts(userId) {
-  let request = new XMLHttpRequest();
-  const postsContainer = document.getElementById("postsContainer");
+  fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+    .then((response) => {
+      // Throw an error if there is a problem
+      if (!response.ok) {
+        throw "Error while getting posts";
+      }
 
-  request.open("GET", `https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-  request.responseType = "json";
-  request.send();
-  request.onload = function () {
-    // Printing Posts for specific user
-    printPosts(this.response);
-  };
+      return response.json();
+    })
+    .then((posts) => printPosts(posts))
+    .catch((error) => console.error(error));
 }
 
 // Print users using DOM
