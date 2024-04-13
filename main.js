@@ -30,36 +30,29 @@ function getPostsFromUser() {
 
 // Get users
 function getUsers() {
-  let fetchUsers = fetch("https://jsonplaceholder.typicode.com/users")
+  let request = axios
+    .get("https://jsonplaceholder.typicode.com/users")
     .then((response) => {
-      // Throw an error if there is a problem
-      if (!response.ok) {
-        throw "Something went wrong while getting users";
-      }
-      return response.json();
-    })
-    .then((users) => {
-      printUsers(users);
+      let users = response.data;
 
-      // getPostsFromUser();
+      // Print users to screen
+      printUsers(users);
     })
     .catch((error) => console.error(error));
 
-  return fetchUsers;
+  return request;
 }
 
 // Get Posts
 function getPosts(userId) {
-  fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+  axios
+    .get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
     .then((response) => {
-      // Throw an error if there is a problem
-      if (!response.ok) {
-        throw "Error while getting posts";
-      }
+      let posts = response.data;
 
-      return response.json();
+      // Print posts based on the user clicked
+      printPosts(posts);
     })
-    .then((posts) => printPosts(posts))
     .catch((error) => console.error(error));
 }
 
