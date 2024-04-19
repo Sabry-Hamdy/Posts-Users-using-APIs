@@ -8,7 +8,7 @@ function getPostsFromUser() {
   document.getElementById("usersContainer").addEventListener("click", (event) => {
     let user = event.target;
     let userIsClicked = false;
-    const usersContainer = document.getElementById("usersContainer");
+    const usersWithActiveClass = document.getElementsByClassName("active");
 
     if (user.className === "user") {
       userIsClicked = true;
@@ -22,7 +22,7 @@ function getPostsFromUser() {
 
     if (userIsClicked === true) {
       getPosts(user.id);
-      clearActiveClass(usersContainer.children);
+      clearActiveClass(usersWithActiveClass);
       user.classList.add("active");
     }
   });
@@ -90,8 +90,8 @@ function printPosts(posts) {
 }
 
 // Clear "active" Class from the users
-function clearActiveClass(users) {
-  for (let user of users) {
+function clearActiveClass(usersWithActiveClass) {
+  for (let user of usersWithActiveClass) {
     user.classList.remove("active");
   }
 }
