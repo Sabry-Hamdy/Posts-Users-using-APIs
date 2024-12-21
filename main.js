@@ -1,29 +1,24 @@
 // Getting users and print them to page, then getting the posts after each click on any user
 getUsers().then(() => getPostsFromUser());
 
-// Functions
-
 // Event Listener for clicking on users
 function getPostsFromUser() {
   document.getElementById("usersContainer").addEventListener("click", (event) => {
-    let user = event.target;
+    let currentUser;
     let userIsClicked = false;
-    const usersWithActiveClass = document.getElementsByClassName("active");
+    let sameUserClicked = false;
 
-    if (user.className === "user") {
-      userIsClicked = true;
-    } else if (user.parentElement.className === "user") {
-      user = user.parentElement;
-      userIsClicked = true;
-    } else if (user.parentElement.parentElement.className === "user") {
-      user = user.parentElement.parentElement;
-      userIsClicked = true;
+    const users = document.getElementsByClassName("user");
+    for (let user of users) {
+      if (user.contains(event.target)) {
+        userIsClicked = true;
+        currentUser = user;
+      }
     }
 
-    if (userIsClicked === true) {
-      getPosts(user.id);
-      clearActiveClass(usersWithActiveClass);
-      user.classList.add("active");
+    const activeUser = document.querySelector(".active");
+    if (userIsClicked) {
+      toggleActiveClass({ activeUser, currentUser });
     }
   });
 }
@@ -90,8 +85,17 @@ function printPosts(posts) {
 }
 
 // Clear "active" Class from the users
-function clearActiveClass(usersWithActiveClass) {
-  for (let user of usersWithActiveClass) {
-    user.classList.remove("active");
+function toggleActiveClass({ activeUser, currentUser }) {
+  activeUser?.classList.remove("active");
+
+  // if the same user got clicked, then remove the class + posts and return
+  if (currentUser === activeUser) {
+    activeUser.classList.remove("active");
+    document.getElementById("postsContainer").innerHTML = "";
+
+    return;
   }
+
+  currentUser.classList.add("active");
+  getPosts(currentUser.id);
 }
