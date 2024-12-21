@@ -39,7 +39,8 @@ body {
 .container .users .user {
   border: 3px solid var(--brown);
   background-color: var(--orange);
-  width: 175px;
+  min-width: 175px;
+  max-width: 250px;
   margin: auto;
   padding: 15px;
   border-radius: 15px;
